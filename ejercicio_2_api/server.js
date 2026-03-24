@@ -31,7 +31,7 @@ async function init() {
     db.horas = await loadCSV('../muestras/vista_climasur_intervenciones_horas.csv');
     db.materiales = await loadCSV('../muestras/vista_climasur_intervenciones_materiales.csv');
     db.desplazamientos = await loadCSV('../muestras/vista_climasur_desplazamientos.csv');
-    console.log('✅ CSVs cargados en memoria');
+    console.log('CSVs cargados en memoria');
 }
 
 // --- ENDPOINTS ---
@@ -118,5 +118,5 @@ app.get('/kpis/resumen', (req, res) => {
 });
 
 init().then(() => {
-    app.listen(PORT, () => console.log(`🚀 API lista en http://localhost:${PORT}`));
+    app.listen(PORT, () => console.log(`API lista en http://localhost:${PORT}`));
 });

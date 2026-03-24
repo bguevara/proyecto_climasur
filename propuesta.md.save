@@ -1,0 +1,86 @@
+# Propuesta de Valor: Optimización Operativa ClimaSur
+**Autor:** Boris Roberto Guevara Galíndez
+
+## 1. Identificación de Oportunidades y Problemas
+
+### A. Fuga de Rentabilidad en Desplazamientos
+Tras analizar `vista_climasur_desplazamientos.csv`, se detecta que aproximadamente el **35-40% de los registros de desplazamiento** (como los de los técnicos Daniel Castaño o Pedro Iglesias) tienen un `PRECIO_VENTA` de **0.0€**, a pesar de generar un `PRECIO_COSTE` de entre **19.0€ y 25.0€**.
+* **Impacto:** Esto supone que casi la mitad de los traslados están siendo asumidos como pérdida operativa. En una empresa de mantenimiento, no repercutir el kilometraje o el tiempo de desplazamiento erosiona directamente el margen neto de la intervención.
+* **Relevancia:** Es crítico parametrizar si esto es un error de carga de datos o una condición contractual mal aplicada en el sistema.
+
+### B. Incoherencia en el Registro de Materiales "Local Purchase"
+En `vista_climasur_intervenciones_materiales.csv`, existen múltiples registros con `COD_PIEZA: 0` y descripciones como *"líquido desatascador"* o *"filtros"*, con costes y ventas en **0.0€**.
+* **Impacto:** Esto indica que el técnico adquiere o utiliza material que no está inventariado (compras locales en supermercados, por ejemplo) y no se está registrando el gasto real. 
+* **Relevancia:** Impide el control de stock real y falsea el KPI de rentabilidad por intervención, ya que hay un consumo de recursos no cuantificado.
+
+---
+
+## 2. Funcionalidad Propuesta: "Smart-Margin & Tech-Alert"
+
+Propongo la implementación de un **Monitor de Rentabilidad en Tiempo Real con Alertas de Anomalías**.
+
+Esta herramienta actuaría como un "seguro de margen" que intercepta la información antes de que la intervención pase a estado *Albaranado*.
+
+### Características principales:
+* **Detección de Intervenciones "En Pérdida":** El sistema calcula automáticamente el margen ($$Venta - Coste$$) de cada intervención. Si el resultado es negativo o menor al 15%, bloquea el cierre y envía una alerta al responsable de zona.
+* **Validación Proactiva de Desplazamientos:** Si existe una intervención finalizada sin un desplazamiento asociado (o con venta 0€), el sistema solicita una justificación obligatoria al técnico.
+
+---
+
+## 3. Descripción de la Implementación
+
+### Arquitectura y Tecnologías:
+* **Capa de Datos:** Una base de datos relacional (MySQL) para persistir las reglas de negocio (márgenes mínimos por cliente/zona).
+* **Motor de Reglas (Backend):** Desarrollado en **Node.js (FastifyExpress)**, que consumirá los datos de los CSV (o tablas SQL) y aplicará la lógica de validación mediante una librería de esquemas como **Zod**.
+
+### Pasos a seguir:
+1.  **Normalización:** Crear un maestro de materiales único para eliminar los `COD_PIEZA: 0`.
+2.  **Webhook de Cierre:** Configurar un trigger que se active cuando el estado de la incidencia cambie a "Finalizado".
+3.  **Cálculo de KPI:** Ejecutar el script de balance:
+    $$Margen_{Total} = \sum (Horas + Mat + Desp)_{Venta} - \sum (Horas + Mat + Desp)_{Coste}$$
+4.  **Dashboard de Control:** Crear una vista en la API (Ejercicio 2 extendido) par# Propuesta de Valor: Optimización Operativa ClimaSur
+**Autor:** Boris Roberto Guevara Galíndez
+
+## 1. Identificación de Oportunidades y Problemas
+
+### A. Fuga de Rentabilidad en Desplazamientos
+Tras analizar `vista_climasur_desplazamientos.csv`, se detecta que aproximadamente el **35-40% de los registros de desplazamiento** (como los de los técnicos Daniel Castaño o Pedro Iglesias) tienen un `PRECIO_VENTA` de **0.0€**, a pesar de generar un `PRECIO_COSTE` de entre **19.0€ y 25.0€**.
+* **Impacto:** Esto supone que casi la mitad de los traslados están siendo asumidos como pérdida operativa. En una empresa de mantenimiento, no repercutir el kilometraje o el tiempo de desplazamiento erosiona directamente el margen neto de la intervención.
+* **Relevancia:** Es crítico parametrizar si esto es un error de carga de datos o una condición contractual mal aplicada en el sistema.
+
+### B. Incoherencia en el Registro de Materiales "Local Purchase"
+En `vista_climasur_intervenciones_materiales.csv`, existen múltiples registros con `COD_PIEZA: 0` y descripciones como *"líquido desatascador"* o *"filtros"*, con costes y ventas en **0.0€**.
+* **Impacto:** Esto indica que el técnico adquiere o utiliza material que no está inventariado (compras locales en supermercados, por ejemplo) y no se está registrando el gasto real. 
+* **Relevancia:** Impide el control de stock real y falsea el KPI de rentabilidad por intervención, ya que hay un consumo de recursos no cuantificado.
+
+---
+
+## 2. Funcionalidad Propuesta: "Smart-Margin & Tech-Alert"
+
+Propongo la implementación de un **Monitor de Rentabilidad en Tiempo Real con Alertas de Anomalías**.
+
+Esta herramienta actuaría como un "seguro de margen" que intercepta la información antes de que la intervención pase a estado *Albaranado*.
+
+### Características principales:
+* **Detección de Intervenciones "En Pérdida":** El sistema calcula automáticamente el margen ($$Venta - Coste$$) de cada intervención. Si el resultado es negativo o menor al 15%, bloquea el cierre y envía una alerta al responsable de zona.
+* **Validación Proactiva de Desplazamientos:** Si existe una intervención finalizada sin un desplazamiento asociado (o con venta 0€), el sistema solicita una justificación obligatoria al técnico.
+
+---
+
+## 3. Descripción de la Implementación
+
+### Arquitectura y Tecnologías:
+* **Capa de Datos:** Una base de datos relacional (PostgreSQL) para persistir las reglas de negocio (márgenes mínimos por cliente/zona).
+* **Motor de Reglas (Backend):** Desarrollado en **Node.js (Fastify/Express)**, que consumirá los datos de los CSV (o tablas SQL) y aplicará la lógica de validación mediante una librería de esquemas como **Zod**.
+* **Automatización de Alertas:** Integración con **n8n**. Cuando se detecta una anomalía (ej. material con coste 0€), n8n dispara un mensaje por WhatsApp API o Telegram al Agente responsable (ej. Rafael Morales o Fernando Márquez).
+
+### Pasos a seguir:
+1.  **Normalización:** Crear un maestro de materiales único para eliminar los `COD_PIEZA: 0`.
+2.  **Webhook de Cierre:** Configurar un trigger que se active cuando el estado de la incidencia cambie a "Finalizado".
+3.  **Cálculo de KPI:** Ejecutar el script de balance:
+    $$Margen_{Total} = \sum (Horas + Mat + Desp)_{Venta} - \sum (Horas + Mat + Desp)_{Coste}$$
+4.  **Dashboard de Control:** Crear una vista en la API (Ejercicio 2 extendido) para que los departamentos (SAT Málaga, SAT Sevilla, etc.) visualicen su eficiencia semanal.
+
+---a que los departamentos (SAT Málaga, SAT Sevilla, etc.) visualicen su eficiencia semanal.
+
+---

@@ -1,0 +1,46 @@
+ne
+import os
+
+# Configuración de la conexión a la base de datos
+# Formato: mysql+mysqlconnector://usuario:contraseña@host:puerto/nombre_bd
+USER = 'root'
+PASSWORD = '16557544'
+HOST = 'localhost'
+PORT = '3306'
+DATABASE = 'bd_proyecto'
+
+def cargar_datos():
+    # Crear el motor de conexión
+    engine = create_engine(f"mysql+mysqlconnector://{USER}:{PASSWORD}@{HOST}:{PORT}/{DATABASE}")
+    
+    # Diccionario de mapeo: 'nombre_archivo_csv': 'nombre_tabla_bd'
+    archivos_tablas = {
+        'vista_climasur_intervenciones.csv': 'intervenciones',
+        'vista_climasur_desplazamientos.csv': 'desplazamientos',
+        'vista_climasur_intervenciones_horas.csv': 'intervenciones_horas',
+        'vista_climasur_intervenciones_materiales.csv': 'intervenciones_materiales'
+    }
+
+    for archivo, tabla in archivos_tablas.items():
+        if os.path.exists(archivo):
+            print(f"Procesando {archivo}...")
+            try:
+                # Leer CSV
+                df = pd.read_csv(archivo)
+                
+                # Normalizar nombres de columnas a minúsculas para que coincidan con el SQL
+                df.columns = [c.lower() for c in df.columns]
+                
+                # Cargar en la base de datos
+                # if_exists='append' para no borrar lo que ya existe
+                # index=False para no guardar el índice de pandas como columna
+                df.to_sql(tabla, con=engine, if_exists='append', index=False)
+                
+                print(f"  ✓ Datos cargados exitosamente en la tabla '{tabla}'.")
+            except Exception as e:
+                print(f"  ✗ Error al cargar {archivo}: {e}")
+        else:
+            print(f"  ! El archivo {archivo} no se encuentra en el directorio.")
+
+if __name__ == "__main__":
+    cargar_datos()

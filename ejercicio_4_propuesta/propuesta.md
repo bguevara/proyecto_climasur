@@ -80,4 +80,4 @@ Propongo una herramienta de **Análisis de datos **. Este sistema extrae, transf
 #http://localhost:3000
 3. **Dashboard:** Crear un dashboard para el análisis de los márgenes de ganancia.
      Ejecutar con: streamlit run dashboard.py --server.port 8501
-4. Igualmente si se desea un control pleno de todos los procesos, se puede implementar un sistema completo (backend-frontend) con Symfony (php), Django(python) o simplemnte una api con Express  
+4. Igualmente si se desea un control pleno de todos los procesos, se puede implementar un sistema completo (backend-frontend) con Symfony (php), Django(python) o simplemente una api con Express  

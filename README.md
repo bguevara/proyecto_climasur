@@ -1,55 +1,33 @@
-Markdown
 
-\# Proyecto de Prueba Técnica - Full Stack / Data Engineer
+# Proyecto de Prueba Técnica - Full Stack / Data Engineer
 
 Este repositorio contiene la resolución de una prueba técnica integral, que abarca desde el modelado de datos en SQL hasta la creación de procesos ETL, una API REST y un Dashboard interactivo para la toma de decisiones.
 
-\---
+---
 
-\## 📁 Estructura del Proyecto
+## 📁 Estructura del Proyecto
 
-\`\`\`text
-
+```text
 borisGuevara/
-
-├── muestras/ # Datos proporcionados (no modificar)
-
-│ ├── vista_climasur_intervenciones.csv
-
-│ ├── vista_climasur_intervenciones_horas.csv
-
-│ ├── vista_climasur_intervenciones_materiales.csv
-
-│ └── vista_climasur_desplazamientos.csv
-
-├── ejercicio_1_sql/ # Modelado y consultas de base de datos
-
-│ ├── loadTables.py # Script de python para cargar datos en las tablas de mysql (\*\*adicional\*\*)
-
-│ ├── schema.sql # DDL: tablas, tipos, PKs, FKs
-
-│ └── margen_bruto.sql # Consulta de margen bruto
-
-├── ejercicio_2_api/ # API REST funcional
-
-│ ├── package.json
-
-│ └── server.js # (Punto de entrada con Express)
-
-├── ejercicio_3_etl/ # Proceso de extracción y transformación
-
-│ ├── sync.py # Script elaborado en python
-
-│ ├── output/ # Ficheros generados por el script
-
-│ └── sync.log # Log de ejecución
-
-└── ejercicio_4_propuesta/ # Análisis de negocio y visualización
-
-├── propuesta.md # Análisis y propuesta de valor
-
-└── dashboard.py # Panel con visualización por provincia de márgenes (\*\*adicional\*\*)
-
+├── muestras/               # Datos proporcionados (no modificar)
+│   ├── vista_climasur_intervenciones.csv
+│   ├── vista_climasur_intervenciones_horas.csv
+│   ├── vista_climasur_intervenciones_materiales.csv
+│   └── vista_climasur_desplazamientos.csv
+├── ejercicio_1_sql/        # Modelado y consultas de base de datos
+│   ├── loadTables.py       # Script de python para cargar datos en las tablas de mysql (**adicional**)
+│   ├── schema.sql          # DDL: tablas, tipos, PKs, FKs
+│   └── margen_bruto.sql    # Consulta de margen bruto
+├── ejercicio_2_api/        # API REST funcional
+│   ├── package.json
+│   └── server.js           # (Punto de entrada con Express)
+├── ejercicio_3_etl/        # Proceso de extracción y transformación
+│   ├── sync.py             # Script elaborado en python
+│   ├── output/             # Ficheros generados por el script
+│   └── sync.log            # Log de ejecución
+└── ejercicio_4_propuesta/  # Análisis de negocio y visualización
+    ├── propuesta.md        # Análisis y propuesta de valor
+    └── dashboard.py        # Panel con visualización por provincia de márgenes (**adicional**)
 **🛠️ Lenguajes y Librerías Utilizadas**
 
 **Python**

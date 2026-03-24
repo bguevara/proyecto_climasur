@@ -27,24 +27,33 @@ borisGuevara/                    # Usa tu nombre real (ej. juan-garcia/)
 ```
 
 ## Lenguajes y librerias utilizadas
-
 #Python
- pandas
- numpy 
- os
- json
- logging
- datetime
- streamlit
- plotly.express
- sqlAlchemy
+pandas
+
+numpy
+
+os
+
+json
+
+logging
+
+datetime
+
+streamlit
+
+plotly.express
+
+sqlAlchemy
 
 #Node.js
- express from 'express';
- fs from 'fs';
- csv from 'csv-parser';
- { z } from 'zod';
- 
+express
+
+fs (FileSystem)
+
+csv-parser
+
+zod (validación de esquemas)
 
 ## Base de datos
   Mysql

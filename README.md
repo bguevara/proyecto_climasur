@@ -1,5 +1,4 @@
-# https://github.com/bguevara
-
+## https://github.com/bguevara
 ## Estructura final del proyecto
 
 ```
@@ -27,9 +26,9 @@ borisGuevara/                    # Usa tu nombre real (ej. juan-garcia/)
     └── dashboard.py                # panel con visualizacion por provincia de margenes de ganancia (***adicional**)
 ```
 
-# Lenguajes y librerias utilizadas
+## Lenguajes y librerias utilizadas
 
-Python
+#Python
  pandas
  numpy 
  os
@@ -40,37 +39,37 @@ Python
  plotly.express
  sqlAlchemy
 
-Node.js
+#Node.js
  express from 'express';
  fs from 'fs';
  csv from 'csv-parser';
  { z } from 'zod';
  
 
-# Base de datos
+## Base de datos
   Mysql
 
-# carpetas
+## Carpetas
 
- # ejercicio_1.sql  
+ ## ejercicio_1.sql  
 
     # script adicional para cargar los datos desde los csv a cada tabla en la base de datos mysql. Esto para testear el sql margen_bruto
     python3 loadTables.py  
   
- # ejercicio_2_api
+ ## ejercicio_2_api
 
     # ejecutar api express
      npm start
 
     #  http://localhost:3000
 
- # ejercicio_3_etl
+ ## ejercicio_3_etl
 
      # ejecutar etl
 
      python3 sync.py
 
-# ejercicio_4_propuesta
+## ejercicio_4_propuesta
     
     # ejecutar dashboard interactivo
      streamlit run dashboard.py --server.port 8501

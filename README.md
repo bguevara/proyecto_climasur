@@ -57,24 +57,24 @@ Antes de comenzar, asegúrate de tener instalado:
 
 **Instalación de dependencias de Python:**
 
-Bash
+
 
 pip install pandas numpy sqlalchemy pymysql streamlit plotly
 
 **🚀 Guía de Ejecución por Carpetas**
 
-**1\. ejercicio_1_sql**
+**1 ejercicio_1_sql**
 
 Incluye un script adicional para cargar los datos desde los CSV a cada tabla en la base de datos MySQL para testear la consulta de margen_bruto.sql.
 
 - 🎥 **Video explicativo:** [Ver en YouTube](https://youtu.be/aogsLy5ee5g)
 - **Ejecutar carga:**
 
-Bash
+
 
 python3 loadTables.py
 
-**2\. ejercicio_2_api**
+**2 ejercicio_2_api**
 
 API construida con Express para la gestión de datos.
 
@@ -96,18 +96,17 @@ Proceso automatizado de sincronización y limpieza de datos.
 - 🎥 **Video explicativo:** [Ver en YouTube](https://youtu.be/MRcSP87P7_g)
 - **Ejecución:**
 
-Bash
 
 python3 sync.py
 
-**4\. ejercicio_4_propuesta**
+**4 ejercicio_4_propuesta**
 
 Contiene el análisis estratégico y un dashboard interactivo para visualizar los márgenes de ganancia por provincia.
 
 - 🎥 **Video explicativo:** [Ver en YouTube](https://youtu.be/zzJSYJ1EIqs)
 - **Ejecutar dashboard:**
 
-Bash
+
 
 streamlit run dashboard.py --server.port 8501
 

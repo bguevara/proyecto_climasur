@@ -43,7 +43,7 @@ cliente (cod_cliente, cliente, direccion, cif), agente (cod_agente, nombre_agent
 
     Utilizar el historial de intervenciones para vender Contratos de Mantenimiento Preventivo a los clientes con más averías (como Moda Sur o Gestiona Facility). Es más rentable para ClimaSur planificar una visita que atender una emergencia un domingo con costes de horas extra.
 
-### F Profesionalización Tecnológica (Tu Rol)
+### F. Profesionalización Tecnológica 
     Desde el punto de vista técnico, se tiene la oportunidad de dotar a la empresa de una Arquitectura de Datos Moderna:
 
     ETL Automatizado: Menos errores humanos al procesar partes de trabajo.
@@ -56,7 +56,7 @@ cliente (cod_cliente, cliente, direccion, cif), agente (cod_agente, nombre_agent
 
 ## 2. Solución: "Sistema de Rentabilidad SAT"
 
-Propongo una herramienta de **Análisis de datos **. Este sistema intercepta el cierre de intervenciones para asegurar la integridad financiera.
+Propongo una herramienta de **Análisis de datos **. Este sistema extrae, transforma e integra la información desde los archivos csv. o json, igualmente establece controles sobre el manejo de la infrormación .
 
 ### Funcionalidades:
 1. **Bloqueo de Cierre por Margen Negativo:** Si la suma de ventas es menor a los costes (Horas + Mat + Desp), el sistema impide el cierre y envía una alerta al jefe de zona (ej. SAT Málaga).
@@ -76,5 +76,8 @@ Propongo una herramienta de **Análisis de datos **. Este sistema intercepta el 
 
 ### Pasos:
 1. **Normalización SQL:** Forzar precios mínimos en el maestro de desplazamientos.
-2. **Endpoint de Validación:** Crear `POST /intervenciones/:cod/validar` que calcule el balance real antes de permitir el cambio a estado "Finalizado".
-3. **Dasboard:** Crear un dashboard para el análisis de los márgenes de ganancia.
+2. **Endpoint de Validación:** Creado el endpoint `POST /intervenciones/:cod/validar` que calcule el balance real antes de permitir el cambio a estado "Finalizado". Ejecutar API con: npm start  
+#http://localhost:3000
+3. **Dashboard:** Crear un dashboard para el análisis de los márgenes de ganancia.
+     Ejecutar con: streamlit run dashboard.py --server.port 8501
+4. Igualmente si se desea un control pleno de todos los procesos, se puede implementar un sistema completo (backend-frontend) con Symfony (php), Django(python) o simplemnte una api con Express  

@@ -64,10 +64,16 @@ borisGuevara/                    # Usa tu nombre real (ej. juan-garcia/)
 
  ## ejercicio_1.sql  
 
+    # ver video explicativo corto del ejercicio 1
+    # https://youtu.be/aogsLy5ee5g
+
     # script adicional para cargar los datos desde los csv a cada tabla en la base de datos mysql. Esto para testear el sql margen_bruto
     python3 loadTables.py  
   
  ## ejercicio_2_api
+
+   # ver video explicativo corto del ejercicio 2
+   # https://youtu.be/UN0gJBJAJMc
 
     # ejecutar api express
      npm start
@@ -75,13 +81,15 @@ borisGuevara/                    # Usa tu nombre real (ej. juan-garcia/)
     #  http://localhost:3000
 
  ## ejercicio_3_etl
-
+     # ver video explicativo corto del ejercicio 3
+     #https://youtu.be/MRcSP87P7_g
      # ejecutar etl
 
      python3 sync.py
 
 ## ejercicio_4_propuesta
-    
+    # ver video explicativo corto del ejercicio 4
+    #https://youtu.be/zzJSYJ1EIqs
     # ejecutar dashboard interactivo
      streamlit run dashboard.py --server.port 8501
 

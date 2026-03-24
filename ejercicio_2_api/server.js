@@ -117,6 +117,67 @@ app.get('/kpis/resumen', (req, res) => {
     res.json(stats);
 });
 
+
+// POST /validar/:cod
+app.post('/intervenciones/:cod/validar', (req, res) => {
+    const codIncidencia = parseInt(req.params.cod);
+
+    // 1. Buscar datos en los objetos cargados en memoria (desde los CSV)
+    const horas = db.horas.filter(h => h.COD_INCIDENCIA == codIncidencia);
+    const materiales = db.materiales.filter(m => m.COD_INCIDENCIA == codIncidencia);
+    const desplazamientos = db.desplazamientos.filter(d => d.COD_INCIDENCIA == codIncidencia);
+
+   
+
+    if (horas.length == 0 && materiales.length == 0 && desplazamientos.length == 0) {
+        return res.status(404).json({ error: "No se encontraron registros para esta incidencia." });
+    }
+
+
+     
+    // 2. Cálculos de Totales
+    const totalHoras = horas.reduce((acc, h) => ({
+        coste: acc.coste + (parseFloat(h.COSTE) || 0),
+        venta: acc.venta + (parseFloat(h.VENTA) || 0)
+    }), { coste: 0, venta: 0 });
+
+    const totalMat = materiales.reduce((acc, m) => ({
+        coste: acc.coste + ((parseFloat(m.PRECIO_COSTE) || 0) * (parseFloat(m.UNIDADES) || 1)),
+        venta: acc.venta + ((parseFloat(m.PRECIO_VENTA) || 0) * (parseFloat(m.UNIDADES) || 1))
+    }), { coste: 0, venta: 0 });
+
+    const totalDesp = desplazamientos.reduce((acc, d) => ({
+        coste: acc.coste + (parseFloat(d.PRECIO_COSTE) || 0),
+        venta: acc.venta + (parseFloat(d.PRECIO_VENTA) || 0)
+    }), { coste: 0, venta: 0 });
+
+    const costeTotal = totalHoras.coste + totalMat.coste + totalDesp.coste;
+    const ventaTotal = totalHoras.venta + totalMat.venta + totalDesp.venta;
+    const margenBruto = ventaTotal - costeTotal;
+    const margenPorcentaje = ventaTotal > 0 ? (margenBruto / ventaTotal) * 100 : 0;
+
+    // 3. Reglas de Validación (Lógica de Negocio)
+    const alertas = [];
+    if (margenBruto <= 0) alertas.push("RENTABILIDAD_NEGATIVA: Los costes superan a la venta.");
+    if (totalDesp.venta === 0 && totalDesp.coste > 0) alertas.push("FUGA_DESPLAZAMIENTO: Hay coste de viaje sin precio de venta.");
+    if (materiales.some(m => m.COD_PIEZA === 0)) alertas.push("MATERIAL_NO_IDENTIFICADO: Se detectaron piezas sin código oficial (COD 0).");
+
+    // 4. Respuesta
+    res.json({
+        cod_incidencia: codIncidencia,
+        resumen_financiero: {
+            coste_total: parseFloat(costeTotal.toFixed(2)),
+            venta_total: parseFloat(ventaTotal.toFixed(2)),
+            margen_neto: parseFloat(margenBruto.toFixed(2)),
+            margen_pct: `${margenPorcentaje.toFixed(2)}%`
+        },
+        validacion: {
+            apto_para_cierre: alertas.length === 0,
+            alertas: alertas
+        }
+    });
+});
+
 init().then(() => {
     app.listen(PORT, () => console.log(`API lista en http://localhost:${PORT}`));
 });

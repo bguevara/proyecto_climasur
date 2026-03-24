@@ -1,4 +1,3 @@
-
 # Proyecto de Prueba Técnica - Full Stack / Data Engineer
 
 Este repositorio contiene la resolución de una prueba técnica integral, que abarca desde el modelado de datos en SQL hasta la creación de procesos ETL, una API REST y un Dashboard interactivo para la toma de decisiones.
@@ -28,6 +27,8 @@ borisGuevara/
 └── ejercicio_4_propuesta/  # Análisis de negocio y visualización
     ├── propuesta.md        # Análisis y propuesta de valor
     └── dashboard.py        # Panel con visualización por provincia de márgenes (**adicional**)
+```
+
 **🛠️ Lenguajes y Librerías Utilizadas**
 
 **Python**
@@ -57,24 +58,24 @@ Antes de comenzar, asegúrate de tener instalado:
 
 **Instalación de dependencias de Python:**
 
-
+Bash
 
 pip install pandas numpy sqlalchemy pymysql streamlit plotly
 
 **🚀 Guía de Ejecución por Carpetas**
 
-**1 ejercicio_1_sql**
+**1\. ejercicio_1_sql**
 
 Incluye un script adicional para cargar los datos desde los CSV a cada tabla en la base de datos MySQL para testear la consulta de margen_bruto.sql.
 
 - 🎥 **Video explicativo:** [Ver en YouTube](https://youtu.be/aogsLy5ee5g)
 - **Ejecutar carga:**
 
-
+Bash
 
 python3 loadTables.py
 
-**2 ejercicio_2_api**
+**2\. ejercicio_2_api**
 
 API construida con Express para la gestión de datos.
 
@@ -87,7 +88,7 @@ npm install
 
 npm start
 
-- **Acceso local:** <http://localhost:3000>
+- **Acceso local:** http://localhost:3000
 
 **3\. ejercicio_3_etl**
 
@@ -96,17 +97,18 @@ Proceso automatizado de sincronización y limpieza de datos.
 - 🎥 **Video explicativo:** [Ver en YouTube](https://youtu.be/MRcSP87P7_g)
 - **Ejecución:**
 
+Bash
 
 python3 sync.py
 
-**4 ejercicio_4_propuesta**
+**4\. ejercicio_4_propuesta**
 
 Contiene el análisis estratégico y un dashboard interactivo para visualizar los márgenes de ganancia por provincia.
 
 - 🎥 **Video explicativo:** [Ver en YouTube](https://youtu.be/zzJSYJ1EIqs)
 - **Ejecutar dashboard:**
 
-
+Bash
 
 streamlit run dashboard.py --server.port 8501
 
